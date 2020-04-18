@@ -12,20 +12,21 @@ module.exports = function(app)   {
 
     app.put("/api/workouts/:id", (req,res)=>{
 
-        Workout.findByIdAndUpdate(req.params.id, {$push: {exercise:req.body}}).then(data => res.json(data))
+        Workout.findByIdAndUpdate(req.params.id, {$push: {exercises:req.body}}).then(data => res.json(data))
         .catch(err => {
             console.log("err", err)
             res.json(err)
         })
     })
 
-    
-    // app.put("/api/workouts/:id", (req,res)=>{
+app.get("/api/workouts/range", (req,res) =>{
+    Workout.find({}).then(
+        workouts=> res.send(workouts)
+    )
+    .catch(err => {
+        console.log("err", err)
+        res.json(err)
+    })
+})
 
-    //     Workout.findById(req.params.id) .then(data => data.Create({exercise:req.body}))
-    //     .catch(err => {
-    //         console.log("err", err)
-    //         res.json(err)
-    //     })
-    // })
 }
